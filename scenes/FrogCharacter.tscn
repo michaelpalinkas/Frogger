@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://bop4ho0g3msy3"]
+
+[ext_resource type="Script" path="res://scripts/FrogCharacter.gd" id="1_psb5p"]
+[ext_resource type="Texture2D" uid="uid://crwq4rse887rp" path="res://assets/Frog.png" id="2_yr5yr"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ihavc"]
+size = Vector2(16, 17)
+
+[node name="FrogCharacter" type="Node2D"]
+script = ExtResource("1_psb5p")
+
+[node name="FrogSprite" type="Sprite2D" parent="."]
+texture = ExtResource("2_yr5yr")
+hframes = 2
+
+[node name="FrogShape" type="Area2D" parent="FrogSprite"]
+
+[node name="FrogCollision" type="CollisionShape2D" parent="FrogSprite/FrogShape"]
+position = Vector2(0, 0.5)
+shape = SubResource("RectangleShape2D_ihavc")
