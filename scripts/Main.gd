@@ -22,12 +22,22 @@ extends Node2D
 	#implement input buffer
 
 
+@onready var lives: Lives = $Lives
+@onready var lvl1: Lvl1 = $Lvl1
+
+signal lvlDied
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
-
+	lives.gameOver.connect(_game_over)
+	lvl1.lvlDied.connect(_lvlDied)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	pass
+	
+func _lvlDied():
+	lives.decreaseLife()
+	
+func _game_over():
+	print("Game Over")

@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://d2506dhyrck4s"]
+
+[ext_resource type="Script" path="res://scripts/Lives.gd" id="1_bh4hj"]
+[ext_resource type="Texture2D" uid="uid://bdoi1x5i1w4qd" path="res://assets/Lives.png" id="2_xq22b"]
+
+[node name="Lives" type="Node2D"]
+position = Vector2(48, 8)
+script = ExtResource("1_bh4hj")
+
+[node name="LivesSprite" type="Sprite2D" parent="."]
+texture = ExtResource("2_xq22b")
+hframes = 7
+frame = 5

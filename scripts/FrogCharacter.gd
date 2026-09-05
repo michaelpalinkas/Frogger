@@ -1,4 +1,5 @@
 extends Node2D
+class_name FrogCharacter
 
 @onready var frog: Node2D = $"."
 @onready var frogSprite: Sprite2D = $FrogSprite
@@ -11,6 +12,8 @@ const MOVE_LENGTH = 32
 const FRAME_STOPPED = 0
 const FRAME_JUMPING = 1
 const VECTORSPACECHECK = 6
+
+signal died
 
 var processingmove: bool = false
 var destinationX: int = -1
@@ -174,6 +177,7 @@ func _on_animation_player_animation_finished(anim_name):
 			self.position.y = startingPos.y
 			frogSprite.rotation_degrees = 0
 			frogSprite.self_modulate.a = 1		
+			died.emit()
 
 func _on_drown_timer_timeout():
 	if !waterSafe:

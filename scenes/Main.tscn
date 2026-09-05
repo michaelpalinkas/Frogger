@@ -1,9 +1,13 @@
-[gd_scene load_steps=3 format=3 uid="uid://dxqren2bam3st"]
+[gd_scene load_steps=4 format=3 uid="uid://dxqren2bam3st"]
 
 [ext_resource type="Script" path="res://scripts/Main.gd" id="1_r0vsk"]
 [ext_resource type="PackedScene" uid="uid://bxssup525tpx4" path="res://scenes/Lvl1.tscn" id="1_rledv"]
+[ext_resource type="PackedScene" uid="uid://d2506dhyrck4s" path="res://scenes/Lives.tscn" id="3_pfsat"]
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1_r0vsk")
 
 [node name="Lvl1" parent="." instance=ExtResource("1_rledv")]
+
+[node name="Lives" parent="." instance=ExtResource("3_pfsat")]
+position = Vector2(48, 520)

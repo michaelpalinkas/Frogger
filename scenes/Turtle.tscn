@@ -30,11 +30,23 @@ hframes = 6
 position = Vector2(0.5, -1)
 shape = SubResource("RectangleShape2D_pd4nj")
 
+[node name="TurtleSprite3" type="Sprite2D" parent="."]
+position = Vector2(64, 0)
+texture = ExtResource("1_4veli")
+hframes = 6
+
+[node name="TurtleArea" type="Area2D" parent="TurtleSprite3"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TurtleSprite3/TurtleArea"]
+position = Vector2(0.5, -1)
+shape = SubResource("RectangleShape2D_pd4nj")
+
 [node name="FrameTimer" type="Timer" parent="."]
 wait_time = 0.35
 
 [node name="DunkTimer" type="Timer" parent="."]
 wait_time = 1.25
 
+[connection signal="area_entered" from="TurtleSprite/TurtleArea" to="." method="_on_turtle_area_area_entered"]
 [connection signal="timeout" from="FrameTimer" to="." method="_on_frame_timer_timeout"]
 [connection signal="timeout" from="DunkTimer" to="." method="_on_dunk_timer_timeout"]
