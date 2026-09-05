@@ -1,5 +1,5 @@
 extends Node2D
-class_name Vehicle
+class_name MovingElement
 
 const LEFT_EDGE = -32
 const RIGHT_EDGE = 512

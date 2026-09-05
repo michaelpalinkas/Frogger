@@ -33,18 +33,20 @@ func populateStartingEntities():
 		car1Instance.setup(Vector2(startX, LANE5Y), -1)
 		add_child(car1Instance)
 	
+	#tractor
 	startX = 96
 	for i in 3:
-		var tracker: PackedScene = load("res://scenes/Tracker.tscn")
-		var trackerInstance: Node2D = tracker.instantiate()
+		var tractor: PackedScene = load("res://scenes/Tractor.tscn")
+		var tractorInstance: Node2D = tractor.instantiate()
 		match i:
 			1:
 				startX = startX + 160
 			2:
 				startX = startX + 160
-		trackerInstance.setup(Vector2(startX, LANE4Y), 1)
-		add_child(trackerInstance)	
+		tractorInstance.setup(Vector2(startX, LANE4Y), 1)
+		add_child(tractorInstance)	
 		
+	#car 2
 	startX = 384
 	for i in 4:
 		var car2: PackedScene = load("res://scenes/Car2.tscn")
@@ -58,7 +60,8 @@ func populateStartingEntities():
 				startX = startX - 64
 		car2Instance.setup(Vector2(startX, LANE3Y), -1)
 		add_child(car2Instance)	
-		
+	
+	#car 3	
 	startX = 64
 	for i in 2:
 		var car3: PackedScene = load("res://scenes/Car3.tscn")
@@ -69,6 +72,7 @@ func populateStartingEntities():
 		car3Instance.setup(Vector2(startX, LANE2Y), 1)
 		add_child(car3Instance)	
 		
+	#truck
 	startX = 384
 	for i in 3:
 		var truck: PackedScene = load("res://scenes/Truck.tscn")

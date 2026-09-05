@@ -1,11 +1,13 @@
 extends Node2D
 
 #MAIN TODO LIST:
-	#art for vehicles
-		#implement vehicles
+
+		#implement vehicles collisions
 		#truck honk?
 	#art for crocs
 		#implement crocs
+	#art for snake
+		#implement snake
 	#art for turtles
 		#implement turtles
 	#art for flies
@@ -17,6 +19,7 @@ extends Node2D
 		#1up
 	#implement menu
 	#implement music/sound effects
+	#implement input buffer
 
 
 

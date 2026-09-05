@@ -1,16 +1,16 @@
 [gd_scene load_steps=4 format=3 uid="uid://b1idb0ly5m22x"]
 
-[ext_resource type="Script" path="res://scripts/Tracker.gd" id="1_6h1g5"]
-[ext_resource type="Texture2D" uid="uid://dr60wkijrbdtb" path="res://assets/Tractor.png" id="2_xbgiv"]
+[ext_resource type="Script" path="res://scripts/Tractor.gd" id="1_hgc3f"]
+[ext_resource type="Texture2D" uid="uid://dr60wkijrbdtb" path="res://assets/Tractor.png" id="2_wesre"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_oypjj"]
 size = Vector2(22, 24)
 
 [node name="Tracker" type="Node2D"]
-script = ExtResource("1_6h1g5")
+script = ExtResource("1_hgc3f")
 
 [node name="TrackerSprite" type="Sprite2D" parent="."]
-texture = ExtResource("2_xbgiv")
+texture = ExtResource("2_wesre")
 
 [node name="Area2D" type="Area2D" parent="TrackerSprite"]
 

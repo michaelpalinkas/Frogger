@@ -1,5 +1,5 @@
-extends Vehicle
-class_name Tracker
+extends MovingElement
+class_name Tractor
 
 const SPEED = 60
 

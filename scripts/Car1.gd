@@ -1,4 +1,4 @@
-extends Vehicle
+extends MovingElement
 class_name Car1
 
 const SPEED = 100
