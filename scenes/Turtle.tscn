@@ -1,3 +1,40 @@
-[gd_scene format=3 uid="uid://draoy7cyvw8x6"]
+[gd_scene load_steps=4 format=3 uid="uid://draoy7cyvw8x6"]
+
+[ext_resource type="Script" path="res://scripts/Turtle.gd" id="1_0jwea"]
+[ext_resource type="Texture2D" uid="uid://dhwllwfvubq5c" path="res://assets/Turtle.png" id="1_4veli"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_pd4nj"]
+size = Vector2(23, 22)
 
 [node name="Turtle" type="Node2D"]
+script = ExtResource("1_0jwea")
+
+[node name="TurtleSprite" type="Sprite2D" parent="."]
+texture = ExtResource("1_4veli")
+hframes = 6
+
+[node name="TurtleArea" type="Area2D" parent="TurtleSprite"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TurtleSprite/TurtleArea"]
+position = Vector2(0.5, -1)
+shape = SubResource("RectangleShape2D_pd4nj")
+
+[node name="TurtleSprite2" type="Sprite2D" parent="."]
+position = Vector2(32, 0)
+texture = ExtResource("1_4veli")
+hframes = 6
+
+[node name="TurtleArea" type="Area2D" parent="TurtleSprite2"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TurtleSprite2/TurtleArea"]
+position = Vector2(0.5, -1)
+shape = SubResource("RectangleShape2D_pd4nj")
+
+[node name="FrameTimer" type="Timer" parent="."]
+wait_time = 0.35
+
+[node name="DunkTimer" type="Timer" parent="."]
+wait_time = 1.25
+
+[connection signal="timeout" from="FrameTimer" to="." method="_on_frame_timer_timeout"]
+[connection signal="timeout" from="DunkTimer" to="." method="_on_dunk_timer_timeout"]

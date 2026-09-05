@@ -6,6 +6,12 @@ const LANE3Y = LANE2Y + 32
 const LANE4Y = LANE3Y + 32
 const LANE5Y = LANE4Y + 32
 
+const WLANE1Y = 144
+const WLANE2Y = WLANE1Y + 32
+const WLANE3Y = WLANE2Y + 32
+const WLANE4Y = WLANE3Y + 32
+const WLANE5Y = WLANE4Y + 32
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	populateStartingEntities()
@@ -84,4 +90,19 @@ func populateStartingEntities():
 				startX = startX - 160
 		truckInstance.setup(Vector2(startX, LANE1Y), -1)
 		add_child(truckInstance)	
+		
+	#turtle twosome
+	startX = 384
+	for i in 3:
+		var turtle: PackedScene = load("res://scenes/Turtle.tscn")
+		var turtleInstance: Node2D = turtle.instantiate()
+		match i:
+			0:
+				turtleInstance.setDunker(true)
+			1:
+				startX = startX - 192
+			2:
+				startX = startX - 96
+		turtleInstance.setup(Vector2(startX, WLANE5Y), -1)
+		add_child(turtleInstance)	
 	

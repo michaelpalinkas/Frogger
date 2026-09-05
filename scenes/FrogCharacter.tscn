@@ -1,7 +1,81 @@
-[gd_scene load_steps=4 format=3 uid="uid://bop4ho0g3msy3"]
+[gd_scene load_steps=7 format=3 uid="uid://bop4ho0g3msy3"]
 
 [ext_resource type="Script" path="res://scripts/FrogCharacter.gd" id="1_psb5p"]
 [ext_resource type="Texture2D" uid="uid://crwq4rse887rp" path="res://assets/Frog.png" id="2_yr5yr"]
+
+[sub_resource type="Animation" id="Animation_ied7w"]
+resource_name = "Splat"
+length = 1.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.1, 0.3, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [2, 3, 4]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:self_modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(1, 1.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0.733333)]
+}
+
+[sub_resource type="Animation" id="Animation_w7aku"]
+resource_name = "Drown"
+length = 1.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.1, 0.3, 0.5, 0.7, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [5, 6, 7, 7, 8]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:self_modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(1.1, 1.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:z_index")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 1.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [0, 1]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_oeehi"]
+_data = {
+"Drown": SubResource("Animation_w7aku"),
+"Splat": SubResource("Animation_ied7w")
+}
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ihavc"]
 size = Vector2(16, 17)
@@ -9,12 +83,31 @@ size = Vector2(16, 17)
 [node name="FrogCharacter" type="Node2D"]
 script = ExtResource("1_psb5p")
 
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+root_node = NodePath("../FrogSprite")
+libraries = {
+"": SubResource("AnimationLibrary_oeehi")
+}
+
 [node name="FrogSprite" type="Sprite2D" parent="."]
+z_index = 1
 texture = ExtResource("2_yr5yr")
-hframes = 2
+hframes = 9
+frame = 1
 
 [node name="FrogShape" type="Area2D" parent="FrogSprite"]
+collision_layer = 3
+collision_mask = 3
 
 [node name="FrogCollision" type="CollisionShape2D" parent="FrogSprite/FrogShape"]
 position = Vector2(0, 0.5)
 shape = SubResource("RectangleShape2D_ihavc")
+
+[node name="DrownTimer" type="Timer" parent="."]
+wait_time = 0.1
+one_shot = true
+
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
+[connection signal="area_entered" from="FrogSprite/FrogShape" to="." method="_on_frog_shape_area_entered"]
+[connection signal="area_exited" from="FrogSprite/FrogShape" to="." method="_on_frog_shape_area_exited"]
+[connection signal="timeout" from="DrownTimer" to="." method="_on_drown_timer_timeout"]

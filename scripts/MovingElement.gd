@@ -34,3 +34,8 @@ func setup(startingVector, startingDirection):
 
 func setSpeed(setSpeed):
 	speed = setSpeed
+	
+func getVelocity() -> Vector2:
+	return velocity
+	
+

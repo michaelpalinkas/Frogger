@@ -9,10 +9,11 @@
 script = ExtResource("1_6bm41")
 
 [node name="Car1Sprite" type="Sprite2D" parent="."]
+z_index = 2
 texture = ExtResource("1_e3ea7")
 
-[node name="Area2D" type="Area2D" parent="Car1Sprite"]
+[node name="VehicleArea" type="Area2D" parent="Car1Sprite"]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Car1Sprite/Area2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Car1Sprite/VehicleArea"]
 position = Vector2(1, 0)
 shape = SubResource("RectangleShape2D_7tv4x")
