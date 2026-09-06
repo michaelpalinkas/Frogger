@@ -101,20 +101,82 @@ func populateStartingEntities():
 		
 	#turtle twosome
 	startX = 384
-	for i in 3:
+	for i in 4:
 		var turtle: PackedScene = load("res://scenes/Turtle.tscn")
 		var turtleInstance: Node2D = turtle.instantiate()
 		match i:
 			0:
 				turtleInstance.setDunker(true, 1)
+				turtleInstance.setDunker(true, 2)
+			1:
+				startX = startX - 96
+			2:
+				startX = startX - 96
+			3:
+				startX = startX - 96
+		turtleInstance.setup(Vector2(startX, WLANE2Y), -1, 2, 75)		
+		add_child(turtleInstance)	
+		turtleInstance.turnOff3rdTurtle()
+		
+	#turtle threesome
+	startX = 384
+	for i in 3:
+		var turtle: PackedScene = load("res://scenes/Turtle.tscn")
+		var turtleInstance: Node2D = turtle.instantiate()
+		match i:
+			0:
+				pass
 			1:
 				startX = startX - 192
 			2:
-				startX = startX - 96
-		turtleInstance.setup(Vector2(startX, WLANE5Y), -1)		
+				startX = startX - 128
+				turtleInstance.setDunker(true, 2)
+		turtleInstance.setup(Vector2(startX, WLANE5Y), -1, 3, 125)		
 		add_child(turtleInstance)	
-		turtleInstance.turnOff3rdTurtle()
 	
+	#logs lane 1
+	startX = 32
+	for i in 3:
+		var log: PackedScene = load("res://scenes/Log.tscn")
+		var logInstance: Node2D = log.instantiate()
+		match i:
+			0:
+				pass
+			1:
+				startX = startX + 192
+			2:
+				startX = startX + 192
+		logInstance.setup(Vector2(startX, WLANE1Y), 1, 4, 50)		
+		add_child(logInstance)	
+		logInstance.setLength()
 
+	#logs lane 3
+	startX = 0
+	for i in 2:
+		var log: PackedScene = load("res://scenes/Log.tscn")
+		var logInstance: Node2D = log.instantiate()
+		match i:
+			0:
+				pass
+			1:
+				startX = startX + 228
+		logInstance.setup(Vector2(startX, WLANE3Y), 1, 5, 75)		
+		add_child(logInstance)	
+		logInstance.setLength()
 
+	#logs lane 4
+	startX = 64
+	for i in 3:
+		var log: PackedScene = load("res://scenes/Log.tscn")
+		var logInstance: Node2D = log.instantiate()
+		match i:
+			0:
+				pass
+			1:
+				startX = startX + 160
+			2:
+				startX = startX + 160
+		logInstance.setup(Vector2(startX, WLANE4Y), 1, 3, 25)		
+		add_child(logInstance)	
+		logInstance.setLength()
 			

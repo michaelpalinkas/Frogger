@@ -9,6 +9,7 @@
 script = ExtResource("1_178vi")
 
 [node name="Car3Sprite" type="Sprite2D" parent="."]
+z_index = 2
 texture = ExtResource("1_p138m")
 
 [node name="VehicleArea" type="Area2D" parent="Car3Sprite"]

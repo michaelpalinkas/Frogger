@@ -102,6 +102,7 @@ func drown():
 	isDead = true
 	matchMoveVel = Vector2(0, 0)
 	animPlayer.play("Drown")
+	waterSafe = true
 
 func _on_frog_shape_area_entered(area):
 	var collisionArea: Area2D = area
@@ -114,8 +115,9 @@ func _on_frog_shape_area_entered(area):
 		"LogArea", "TurtleArea":
 			if !waterSafe:
 				waterSafe = true
-				var movingElement: MovingElement = collisionArea.get_parent().get_parent()
-				matchMoveVel = movingElement.getVelocity()
+			var movingElement: MovingElement = collisionArea.get_parent().get_parent()
+			matchMoveVel = movingElement.getVelocity()
+			
 			
 func _on_frog_shape_area_exited(area):
 	var collisionArea: Area2D = area
@@ -146,8 +148,9 @@ func _on_frog_shape_area_exited(area):
 				query.collide_with_areas = true
 				query.collision_mask = 1
 				query.exclude = [frogShape.get_rid()]
-				#drawRay = true
-				#queue_redraw()
+				if get_tree().debug_collisions_hint:
+					drawRay = true
+					queue_redraw()
 				results = spaceState.intersect_ray(query)
 				if results:
 					var collisionObject: Area2D = results["collider"]
@@ -165,7 +168,7 @@ func _on_frog_shape_area_exited(area):
 							#print(collisionObject.name)
 							match collisionObject.name:
 								"WaterArea":
-									drown()
+									drownTimer.start()
 					
 	
 

@@ -9,11 +9,12 @@ size = Vector2(55, 24)
 [node name="Truck" type="Node2D"]
 script = ExtResource("1_suxil")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="TruckSprite" type="Sprite2D" parent="."]
+z_index = 2
 texture = ExtResource("2_3xu56")
 
-[node name="VehicleArea" type="Area2D" parent="Sprite2D"]
+[node name="VehicleArea" type="Area2D" parent="TruckSprite"]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Sprite2D/VehicleArea"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TruckSprite/VehicleArea"]
 position = Vector2(0.5, 0)
 shape = SubResource("RectangleShape2D_k46aa")

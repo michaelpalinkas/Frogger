@@ -10,6 +10,7 @@ size = Vector2(22, 24)
 script = ExtResource("1_hgc3f")
 
 [node name="TrackerSprite" type="Sprite2D" parent="."]
+z_index = 2
 texture = ExtResource("2_wesre")
 
 [node name="VehicleArea" type="Area2D" parent="TrackerSprite"]
