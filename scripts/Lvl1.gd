@@ -2,6 +2,11 @@ extends Node2D
 class_name Lvl1
 
 @onready var frog: FrogCharacter = $FrogCharacter
+@onready var chickenDinner1: Sprite2D = $Winzone1/ChickenDinner
+@onready var chickenDinner2: Sprite2D = $Winzone2/ChickenDinner
+@onready var chickenDinner3: Sprite2D = $Winzone3/ChickenDinner
+@onready var chickenDinner4: Sprite2D = $Winzone4/ChickenDinner
+@onready var chickenDinner5: Sprite2D = $Winzone5/ChickenDinner
 
 const LANE1Y = 336
 const LANE2Y = LANE1Y + 32
@@ -16,10 +21,12 @@ const WLANE4Y = WLANE3Y + 32
 const WLANE5Y = WLANE4Y + 32
 
 signal lvlDied
+signal fireChickenDinner
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	frog.died.connect(_lvlDied)
+	frog.chickenDinner.connect(_fireChickenDinner)
 	populateStartingEntities()
 
 
@@ -29,6 +36,25 @@ func _process(delta):
 
 func _lvlDied():
 	lvlDied.emit()
+	
+func _fireChickenDinner(indexZone):
+	match indexZone:
+		1:
+			chickenDinner1.visible = true
+			chickenDinner1.get_parent().set_deferred("collision_layer", 0)
+		2:
+			chickenDinner2.visible = true
+			chickenDinner2.get_parent().set_deferred("collision_layer", 0)
+		3:
+			chickenDinner3.visible = true
+			chickenDinner3.get_parent().set_deferred("collision_layer", 0)
+		4:
+			chickenDinner4.visible = true
+			chickenDinner4.get_parent().set_deferred("collision_layer", 0)
+		5:
+			chickenDinner5.visible = true
+			chickenDinner5.get_parent().set_deferred("collision_layer", 0)
+	fireChickenDinner.emit()
 
 func populateStartingEntities():
 	var startX

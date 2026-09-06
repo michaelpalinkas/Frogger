@@ -1,8 +1,9 @@
-[gd_scene load_steps=12 format=3 uid="uid://bxssup525tpx4"]
+[gd_scene load_steps=21 format=3 uid="uid://bxssup525tpx4"]
 
 [ext_resource type="Texture2D" uid="uid://cocvbl7o5xood" path="res://assets/FroggerTilemap.png" id="1_77jpe"]
-[ext_resource type="Script" path="res://scripts/Lvl1.gd" id="1_d5nuo"]
+[ext_resource type="Script" path="res://scripts/Lvl1.gd" id="1_mmr82"]
 [ext_resource type="PackedScene" uid="uid://bop4ho0g3msy3" path="res://scenes/FrogCharacter.tscn" id="2_y337a"]
+[ext_resource type="Texture2D" uid="uid://ygue8xeqw6ru" path="res://assets/ChickenDinner.png" id="3_0bl0g"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_xa7g3"]
 texture = ExtResource("1_77jpe")
@@ -154,10 +155,22 @@ texture_region_size = Vector2i(32, 32)
 sources/0 = SubResource("TileSetAtlasSource_44h5r")
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5wlxe"]
-size = Vector2(480, 153)
+size = Vector2(480, 199)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_om7bq"]
-size = Vector2(32, 30)
+size = Vector2(28, 30)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xuog8"]
+size = Vector2(28, 29)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_b5w80"]
+size = Vector2(28, 31)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_x6qbr"]
+size = Vector2(28, 30)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_nb2ig"]
+size = Vector2(28, 30)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_lhgqh"]
 size = Vector2(3, 149)
@@ -165,8 +178,16 @@ size = Vector2(3, 149)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_yp6g7"]
 size = Vector2(4, 149)
 
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_yon55"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_3d4km"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_bhdmm"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_668ip"]
+
 [node name="Lvl1" type="Node2D"]
-script = ExtResource("1_d5nuo")
+script = ExtResource("1_mmr82")
 
 [node name="Background" type="TileMap" parent="."]
 position = Vector2(8, 8)
@@ -188,10 +209,15 @@ collision_layer = 2
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="WaterArea"]
-position = Vector2(240, 208.5)
+position = Vector2(240, 185.5)
 shape = SubResource("RectangleShape2D_5wlxe")
 
 [node name="Winzone1" type="Area2D" parent="."]
+
+[node name="ChickenDinner" type="Sprite2D" parent="Winzone1"]
+visible = false
+position = Vector2(48, 112)
+texture = ExtResource("3_0bl0g")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Winzone1"]
 position = Vector2(48, 112)
@@ -199,27 +225,47 @@ shape = SubResource("RectangleShape2D_om7bq")
 
 [node name="Winzone2" type="Area2D" parent="."]
 
+[node name="ChickenDinner" type="Sprite2D" parent="Winzone2"]
+visible = false
+position = Vector2(144, 111.5)
+texture = ExtResource("3_0bl0g")
+
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Winzone2"]
-position = Vector2(144, 112)
-shape = SubResource("RectangleShape2D_om7bq")
+position = Vector2(144, 111.5)
+shape = SubResource("RectangleShape2D_xuog8")
 
 [node name="Winzone3" type="Area2D" parent="."]
 
+[node name="ChickenDinner" type="Sprite2D" parent="Winzone3"]
+visible = false
+position = Vector2(240, 111.5)
+texture = ExtResource("3_0bl0g")
+
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Winzone3"]
-position = Vector2(240, 112)
-shape = SubResource("RectangleShape2D_om7bq")
+position = Vector2(240, 111.5)
+shape = SubResource("RectangleShape2D_b5w80")
 
 [node name="Winzone4" type="Area2D" parent="."]
 
+[node name="ChickenDinner" type="Sprite2D" parent="Winzone4"]
+visible = false
+position = Vector2(336, 112)
+texture = ExtResource("3_0bl0g")
+
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Winzone4"]
 position = Vector2(336, 112)
-shape = SubResource("RectangleShape2D_om7bq")
+shape = SubResource("RectangleShape2D_x6qbr")
 
 [node name="Winzone5" type="Area2D" parent="."]
 
+[node name="ChickenDinner" type="Sprite2D" parent="Winzone5"]
+visible = false
+position = Vector2(432, 112)
+texture = ExtResource("3_0bl0g")
+
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Winzone5"]
 position = Vector2(432, 112)
-shape = SubResource("RectangleShape2D_om7bq")
+shape = SubResource("RectangleShape2D_nb2ig")
 
 [node name="DunkZone1" type="Area2D" parent="."]
 
@@ -232,3 +278,30 @@ shape = SubResource("RectangleShape2D_lhgqh")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DunkZone2"]
 position = Vector2(175, 208.5)
 shape = SubResource("RectangleShape2D_yp6g7")
+
+[node name="LeftWorldBorder" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LeftWorldBorder"]
+position = Vector2(0, 256)
+rotation = 1.5708
+shape = SubResource("WorldBoundaryShape2D_yon55")
+
+[node name="RightWorldBorder" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RightWorldBorder"]
+position = Vector2(480, 265)
+rotation = -1.5708
+shape = SubResource("WorldBoundaryShape2D_3d4km")
+
+[node name="BottomWorldBorder" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BottomWorldBorder"]
+position = Vector2(240, 512)
+shape = SubResource("WorldBoundaryShape2D_bhdmm")
+
+[node name="TopWorldBorder" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TopWorldBorder"]
+position = Vector2(256, 108)
+rotation = 3.14159
+shape = SubResource("WorldBoundaryShape2D_668ip")

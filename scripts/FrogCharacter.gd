@@ -14,6 +14,7 @@ const FRAME_JUMPING = 1
 const VECTORSPACECHECK = 6
 
 signal died
+signal chickenDinner
 
 var processingmove: bool = false
 var destinationX: int = -1
@@ -72,7 +73,7 @@ func _process(delta):
 				processingmove = false
 				destinationX = -1
 		if destinationX != -1 and frog.position.x < destinationX: #right
-			frog.position.x = frog.position.x + (delta * SPEED)
+			frog.position.x = frog.position.x + (delta * SPEED) 
 			if frog.position.x >= destinationX:
 				frog.position.x = destinationX
 				processingmove = false
@@ -104,6 +105,12 @@ func drown():
 	animPlayer.play("Drown")
 	waterSafe = true
 
+func spinOut():
+	isDead = true
+	matchMoveVel = Vector2(0, 0)
+	animPlayer.play("SpinOut")
+	waterSafe = true
+
 func _on_frog_shape_area_entered(area):
 	var collisionArea: Area2D = area
 	match collisionArea.name:
@@ -117,7 +124,16 @@ func _on_frog_shape_area_entered(area):
 				waterSafe = true
 			var movingElement: MovingElement = collisionArea.get_parent().get_parent()
 			matchMoveVel = movingElement.getVelocity()
-			
+		"LeftWorldBorder": 
+			if !isDead:
+				processingmove = false
+			spinOut()
+		"RightWorldBorder":
+			if !isDead:
+				processingmove = false
+			spinOut()
+		"BottomWorldBorder", "TopWorldBorder":
+			spinOut()
 			
 func _on_frog_shape_area_exited(area):
 	var collisionArea: Area2D = area
@@ -159,6 +175,16 @@ func _on_frog_shape_area_exited(area):
 						match collisionObject.name:
 							"TurtleArea", "LogArea":
 								waterSafe = true
+							"Winzone1":
+								fireChickenDinner(1)
+							"Winzone2":
+								fireChickenDinner(2)
+							"Winzone3":
+								fireChickenDinner(3)
+							"Winzone4":
+								fireChickenDinner(4)
+							"Winzone5":
+								fireChickenDinner(5)
 				else:
 					query.collision_mask = 2
 					results = spaceState.intersect_ray(query)
@@ -170,17 +196,30 @@ func _on_frog_shape_area_exited(area):
 								"WaterArea":
 									drownTimer.start()
 					
-	
+
+func fireChickenDinner(indexZone):
+	resetPos()
+	matchMoveVel = Vector2(0, 0)
+	chickenDinner.emit(indexZone)	
 
 func _on_animation_player_animation_finished(anim_name):
 	match anim_name:
-		"Splat", "Drown":
+		"Splat", "Drown", "SpinOut":
 			isDead = false
-			self.position.x = startingPos.x
-			self.position.y = startingPos.y
-			frogSprite.rotation_degrees = 0
-			frogSprite.self_modulate.a = 1		
+			resetPos()
 			died.emit()
+
+func resetPos():
+	waterSafe = true
+	processingmove = false
+	self.position.x = startingPos.x
+	self.position.y = startingPos.y
+	destinationX = self.position.x
+	destinationY = self.position.y
+	frogSprite.scale.x = 1
+	frogSprite.scale.y = 1
+	frogSprite.rotation_degrees = 0
+	frogSprite.self_modulate.a = 1		
 
 func _on_drown_timer_timeout():
 	if !waterSafe:

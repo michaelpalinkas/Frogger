@@ -1,0 +1,72 @@
+[gd_scene load_steps=5 format=3 uid="uid://bhs84t7cvknyu"]
+
+[ext_resource type="FontFile" uid="uid://bjdwl7myre5ks" path="res://assets/Rubik-Black.ttf" id="1_w8gfc"]
+[ext_resource type="PackedScene" uid="uid://dxqren2bam3st" path="res://scenes/Main.tscn" id="2_einyf"]
+[ext_resource type="Script" path="res://scripts/UI.gd" id="2_y36b2"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_krp4y"]
+bg_color = Color(0.227451, 0.152941, 0.211765, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+
+[node name="UIElements" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Game" type="CanvasLayer" parent="."]
+
+[node name="Main" parent="Game" instance=ExtResource("2_einyf")]
+
+[node name="UI" type="CanvasLayer" parent="."]
+layer = 2
+script = ExtResource("2_y36b2")
+
+[node name="PanelContainer" type="PanelContainer" parent="UI"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -58.0
+offset_top = -31.0
+offset_right = 58.0
+offset_bottom = 31.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_krp4y")
+
+[node name="MarginContainer" type="MarginContainer" parent="UI/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 6
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 6
+theme_override_constants/margin_bottom = 6
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/PanelContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="Title" type="Label" parent="UI/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_fonts/font = ExtResource("1_w8gfc")
+theme_override_font_sizes/font_size = 32
+text = "Frogger!"
+
+[node name="NewGameButton" type="Button" parent="UI/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_w8gfc")
+theme_override_font_sizes/font_size = 16
+text = "New Game"
+
+[connection signal="pressed" from="UI/PanelContainer/MarginContainer/VBoxContainer/NewGameButton" to="Game/Main" method="_on_new_game_button_pressed"]
+[connection signal="pressed" from="UI/PanelContainer/MarginContainer/VBoxContainer/NewGameButton" to="UI" method="_on_new_game_button_pressed"]

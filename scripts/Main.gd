@@ -2,42 +2,83 @@ extends Node2D
 
 #MAIN TODO LIST:
 
-		#implement vehicles collisions
-		#truck honk?
+	#fix double drown bug fixxed?
+	#diagonal bug after getting to end
+	#left stuck bug
 	#art for crocs
 		#implement crocs
 	#art for snake
 		#implement snake
-	#art for turtles
-		#implement turtles
 	#art for flies
 		#implement flies 
 		#score
 	#implement timer
-	#implement lives
-		#death animations
 		#1up
-	#implement menu
 	#implement music/sound effects
+		#truck honk?
+	#random exhaust animation
 	#implement input buffer
 
-
+@onready var UI: CanvasLayer = $"../../UI"
 @onready var lives: Lives = $Lives
 @onready var lvl1: Lvl1 = $Lvl1
 
-signal lvlDied
+var goalCount = 0
 
+signal lvlDied
+signal chickenDinner
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	lives.gameOver.connect(_game_over)
-	lvl1.lvlDied.connect(_lvlDied)
+	lvl1.process_mode = Node.PROCESS_MODE_DISABLED	
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	pass
-	
+	if Input.is_action_just_pressed("ESC"):
+		if lvl1.process_mode == Node.PROCESS_MODE_DISABLED:
+			lvl1.process_mode = Node.PROCESS_MODE_INHERIT
+		else:
+			lvl1.process_mode = Node.PROCESS_MODE_DISABLED
+		
 func _lvlDied():
 	lives.decreaseLife()
 	
+func _chickenDinner():
+	goalCount += 1
+	if goalCount == 5:
+		lvl1.process_mode = Node.PROCESS_MODE_DISABLED
+		UI.visible = true
+		UI.setTitleLabel("Winner!")
+		UI.setNewGameButtonEnabled(true)
+
 func _game_over():
-	print("Game Over")
+	goalCount = 0
+	lvl1.process_mode = Node.PROCESS_MODE_DISABLED	
+	UI.visible = true
+	UI.setTitleLabel("Game Over")
+	UI.setNewGameButtonEnabled(true)
+
+func _on_new_game_button_pressed():
+	lvl1.process_mode = Node.PROCESS_MODE_INHERIT
+	UI.visible = false
+	UI.setNewGameButtonEnabled(false)
+	if is_instance_valid(lvl1):
+		lvl1.queue_free()
+	var lvlPacked = load("res://scenes/Lvl1.tscn")
+	lvl1 = lvlPacked.instantiate()
+	add_child(lvl1)
+	var livesPos
+	if is_instance_valid(lives):
+		livesPos = lives.position
+		lives.queue_free()
+	var livesPacked = load("res://scenes/Lives.tscn")
+	lives = livesPacked.instantiate()
+	lives.position = livesPos
+	add_child(lives)
+	connectSignals()
+
+func connectSignals():
+	lives.gameOver.connect(_game_over)
+	lvl1.lvlDied.connect(_lvlDied)
+	lvl1.fireChickenDinner.connect(_chickenDinner)
+	
+	
