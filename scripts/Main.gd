@@ -22,6 +22,8 @@ extends Node2D
 @onready var UI: CanvasLayer = $"../../UI"
 @onready var lives: Lives = $Lives
 @onready var lvl1: Lvl1 = $Lvl1
+@onready var timerBar: TextureProgressBar = $"../PanelContainer2/HBoxContainer/TimerBar"
+@onready var frogTimer: Timer = $"../FrogTimer"
 
 var goalCount = 0
 
@@ -38,6 +40,11 @@ func _process(delta):
 			lvl1.process_mode = Node.PROCESS_MODE_INHERIT
 		else:
 			lvl1.process_mode = Node.PROCESS_MODE_DISABLED
+			
+	timerBar.value = (frogTimer.time_left / frogTimer.wait_time) * timerBar.max_value
+	
+	if timerBar.value == 0:
+		lvl1.frog.spinOut()
 		
 func _lvlDied():
 	lives.decreaseLife()
@@ -75,6 +82,7 @@ func _on_new_game_button_pressed():
 	lives.position = livesPos
 	add_child(lives)
 	connectSignals()
+	frogTimer.start()
 
 func connectSignals():
 	lives.gameOver.connect(_game_over)
