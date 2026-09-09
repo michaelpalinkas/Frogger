@@ -15,6 +15,7 @@ const VECTORSPACECHECK = 6
 
 signal died
 signal chickenDinner
+signal upMove
 
 var processingmove: bool = false
 var destinationX: int = -1
@@ -56,6 +57,7 @@ func _process(delta):
 				processingmove = true		
 				frogSprite.rotation_degrees = 0
 				destinationY = frog.position.y - MOVE_LENGTH
+				upMove.emit()
 		
 		if Input.is_action_just_pressed("DOWN"):
 			if processingmove == false:

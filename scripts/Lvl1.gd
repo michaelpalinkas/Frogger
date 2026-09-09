@@ -22,11 +22,13 @@ const WLANE5Y = WLANE4Y + 32
 
 signal lvlDied
 signal fireChickenDinner
+signal frogUpMove
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	frog.died.connect(_lvlDied)
 	frog.chickenDinner.connect(_fireChickenDinner)
+	frog.upMove.connect(_frogUpMove)
 	populateStartingEntities()
 
 
@@ -36,6 +38,9 @@ func _process(delta):
 
 func _lvlDied():
 	lvlDied.emit()
+	
+func _frogUpMove():
+	frogUpMove.emit()
 	
 func _fireChickenDinner(indexZone):
 	match indexZone:
